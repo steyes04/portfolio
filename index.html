@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stephen Reyes — Amazon VA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --amazon-dark:  #131921;
+      --amazon-navy:  #232F3E;
+      --amazon-orange:#FF9900;
+      --amazon-hover: #e68a00;
+      --amazon-light: #FEBD69;
+      --bg:           #F3F3F3;
+      --card:         #FFFFFF;
+      --ink:          #0F1111;
+      --muted:        #565959;
+      --line:         #DDD;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 6vw; height: 60px;
+      background: var(--amazon-dark);
+      border-bottom: 3px solid var(--amazon-orange);
+      animation: fadeDown 0.6s ease both;
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+    .nav-logo span { color: var(--amazon-orange); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--amazon-orange); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 7rem 6vw 6rem; text-align: center;
+      background: var(--amazon-navy); position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 55% at 50% 45%, rgba(255,153,0,0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 60px;
+      background: var(--bg); clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    /* LOGO SPACE */
+    .hero-logo-wrap { margin-bottom: 2.8rem; animation: fadeUp 0.7s 0.1s ease both; }
+    .hero-logo-box {
+      width: 380px; height: 380px;
+      //border: 2px dashed rgba(255,153,0,0.5); border-radius: 16px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.6rem; margin: 0 auto;
+      //background: rgba(255,153,0,0.06);
+      transition: border-color 0.3s, background 0.3s; cursor: pointer;
+      overflow: visible;
+    }
+    //.hero-logo-box:hover { border-color: var(--amazon-orange); background: rgba(255,153,0,0.12); }
+    .hero-logo-box img { width: 88%; height: 88%; object-fit: contain; padding: 0; transform: none; }
+    .hero-logo-box svg { opacity: 0.45; color: var(--amazon-orange); }
+    .hero-logo-box .placeholder-text { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 400; }
+    .hero-logo-hint { font-size: 0.7rem; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; margin-top: 0.6rem; }
+
+    .hero-tag { display: inline-block; font-size: 0.73rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--amazon-orange); font-weight: 500; border: 1px solid rgba(255,153,0,0.5); padding: 0.35rem 1.1rem; border-radius: 2px; margin-bottom: 1.8rem; background: rgba(255,153,0,0.07); animation: fadeUp 0.7s 0.25s ease both; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.8rem, 10vw, 8rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.01em; color: #FFFFFF; animation: fadeUp 0.7s 0.4s ease both; }
+    .hero h1 em { font-style: italic; color: var(--amazon-orange); }
+    .hero-sub { max-width: 520px; margin: 1.6rem auto 0; font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.6); line-height: 1.8; animation: fadeUp 0.7s 0.55s ease both; }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.8rem; animation: fadeUp 0.7s 0.7s ease both; }
+    .btn-primary { background: var(--amazon-orange); color: var(--amazon-dark); padding: 0.85rem 2.2rem; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; text-decoration: none; border-radius: 3px; box-shadow: 0 2px 8px rgba(255,153,0,0.35); transition: background 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .btn-primary:hover { background: var(--amazon-hover); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,153,0,0.4); }
+    .btn-outline { border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 0.85rem 2.2rem; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-radius: 3px; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+    .btn-outline:hover { border-color: var(--amazon-orange); color: var(--amazon-orange); transform: translateY(-2px); }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 6vw; }
+    .section-label { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amazon-orange); font-weight: 500; margin-bottom: 0.8rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1.15; color: var(--ink); }
+    .divider { width: 40px; height: 3px; background: var(--amazon-orange); margin: 1.4rem 0 2.4rem; border-radius: 2px; }
+
+    /* ── ABOUT ── */
+    .about { background: var(--card); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 6rem; align-items: center; max-width: 1100px; margin: 0 auto; }
+    .about-image-wrap { position: relative; }
+    .about-image-placeholder { width: 100%; aspect-ratio: 3/4; background: var(--bg); border-radius: 4px; overflow: hidden; }
+    .about-image-placeholder svg { opacity: 0.3; }
+    .about-accent-box { position: absolute; bottom: -1.2rem; right: -1.2rem; width: 80px; height: 80px; background: var(--amazon-orange); opacity: 0.12; border-radius: 4px; }
+    .about-text p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.85; margin-bottom: 1.2rem; }
+    .about-text strong { color: var(--ink); font-weight: 500; }
+    .stats-row { display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 2.5rem; }
+    .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300; color: var(--amazon-navy); line-height: 1; }
+    .stat-label { font-size: 0.74rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 0.3rem; max-width: 110px; line-height: 1.4; }
+
+    /* ── SERVICES ── */
+    .services { background: var(--bg); }
+    .services-inner { max-width: 1100px; margin: 0 auto; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; margin-top: 1rem; background: var(--line); border: 1px solid var(--line); }
+    .service-card { background: var(--card); padding: 2.6rem 2.2rem; transition: box-shadow 0.25s, transform 0.25s; cursor: default; position: relative; }
+    .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--amazon-orange); transform: scaleX(0); transition: transform 0.25s; }
+    .service-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-4px); z-index: 1; }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon { width: 44px; height: 44px; background: rgba(255,153,0,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.2rem; }
+    .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 500; margin-bottom: 0.7rem; color: var(--amazon-navy); }
+    .service-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── TOOLS ── */
+    .tools { background: var(--amazon-dark); }
+    .tools .section-label { color: var(--amazon-orange); }
+    .tools .section-title { color: #fff; }
+    .tools .divider { background: var(--amazon-orange); }
+    .tools-inner { max-width: 1100px; margin: 0 auto; }
+    .tools-grid { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem; }
+    .tool-pill { padding: 0.5rem 1.2rem; border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; font-size: 0.82rem; letter-spacing: 0.03em; color: rgba(255,255,255,0.7); transition: border-color 0.2s, color 0.2s, background 0.2s; }
+    .tool-pill:hover { border-color: var(--amazon-orange); color: var(--amazon-orange); background: rgba(255,153,0,0.08); }
+
+    /* ── PROCESS ── */
+    .process { background: var(--card); }
+    .process-inner { max-width: 900px; margin: 0 auto; }
+    .process-steps { margin-top: 1rem; }
+    .process-step { display: grid; grid-template-columns: 64px 1fr; gap: 2rem; padding: 2.4rem 0; border-bottom: 1px solid var(--line); }
+    .step-num { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; color: var(--amazon-orange); opacity: 0.35; line-height: 1; padding-top: 0.2rem; }
+    .step-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--amazon-navy); }
+    .step-content p { font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
+
+
+    /* ── WORK SAMPLES ── */
+    .samples { background: var(--bg); }
+    .samples-inner { max-width: 1100px; margin: 0 auto; }
+    .samples-intro { font-size: 1rem; color: var(--muted); margin-bottom: 2.5rem; max-width: 600px; }
+    .samples-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 2rem; margin-top: 1rem; }
+    .sample-card { background: var(--card); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; transition: box-shadow 0.25s, transform 0.25s; }
+    .sample-card:hover { box-shadow: 0 10px 36px rgba(0,0,0,0.1); transform: translateY(-4px); }
+    .sample-video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--amazon-navy); overflow: hidden; }
+    .sample-video-wrap iframe { width: 100%; height: 100%; border: none; }
+    .sample-video-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; color: rgba(255,255,255,0.5); cursor: pointer; }
+    .sample-video-placeholder svg { color: var(--amazon-orange); opacity: 0.8; }
+    .sample-video-placeholder span { font-size: 0.85rem; font-weight: 500; color: rgba(255,255,255,0.7); }
+    .sample-video-placeholder p { font-size: 0.72rem; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; }
+    .sample-info { padding: 1.6rem 2rem; }
+    .sample-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 500; color: var(--amazon-navy); margin-bottom: 0.5rem; }
+    .sample-info p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    .samples-note { font-size: 0.82rem; color: var(--muted); margin-top: 2rem; padding: 1rem 1.4rem; background: rgba(255,153,0,0.07); border-left: 3px solid var(--amazon-orange); border-radius: 0 4px 4px 0; }
+    @media (max-width: 768px) { .samples-grid { grid-template-columns: 1fr; } }
+
+    /* ── CERTIFICATIONS ── */
+    .certifications { background: var(--bg); }
+    .certifications-inner { max-width: 1100px; margin: 0 auto; }
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+    .cert-card { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; gap: 0; transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s; position: relative; }
+    .cert-img-wrap { width: 100%; overflow: hidden; background: var(--bg); }
+    .cert-img-wrap img { width: 100%; height: auto; object-fit: contain; display: block; }
+    .cert-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.05em; border-bottom: 1px dashed var(--line); background: #f8f8f8; } .cert-img-placeholder span img { width:100%; height:auto; object-fit:contain; display:block; padding:8px; }
+    .cert-img-placeholder svg { opacity: 0.3; }
+    .cert-body { display: flex; align-items: flex-start; gap: 1rem; padding: 1.6rem; }
+    .cert-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--amazon-orange); border-radius: 4px 4px 0 0; transform: scaleX(0); transition: transform 0.25s; }
+    .cert-card:hover { border-color: rgba(255,153,0,0.4); box-shadow: 0 8px 28px rgba(0,0,0,0.08); transform: translateY(-4px); }
+    .cert-card:hover::before { transform: scaleX(1); }
+    .cert-badge { width: 50px; height: 50px; background: var(--amazon-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .cert-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; line-height: 1.35; color: var(--amazon-navy); }
+    .cert-issuer { font-size: 0.77rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--amazon-orange); font-weight: 600; margin-top: 0.2rem; }
+    .cert-platform { font-size: 0.82rem; color: var(--muted); margin-top: 0.15rem; }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--amazon-navy); }
+    .contact-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .contact .section-label { color: var(--amazon-orange); }
+    .contact .section-title { color: #fff; }
+    .contact .divider { margin: 1.4rem auto 2.4rem; background: var(--amazon-orange); }
+    .contact-inner p { font-size: 1rem; color: rgba(255,255,255,0.55); line-height: 1.8; margin-bottom: 3rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+    .contact-link { display: flex; align-items: center; gap: 0.5rem; font-size: 0.84rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.75); text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 0.7rem 1.4rem; border-radius: 3px; transition: color 0.2s, border-color 0.2s, background 0.2s; }
+    .contact-link:hover { color: var(--amazon-dark); background: var(--amazon-orange); border-color: var(--amazon-orange); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--amazon-dark); color: rgba(255,255,255,0.3); text-align: center; padding: 2.2rem 6vw; font-size: 0.78rem; letter-spacing: 0.05em; border-top: 3px solid var(--amazon-orange); }
+    footer span { color: var(--amazon-orange); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── HAMBURGER ── */
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 200; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: flex; flex-direction: column;
+        position: fixed; top: 60px; right: 0; left: 0;
+        background: var(--amazon-dark);
+        border-top: 2px solid var(--amazon-orange);
+        padding: 1.2rem 6vw 2rem;
+        gap: 0; list-style: none;
+        transform: translateY(-110%); opacity: 0;
+        transition: transform 0.35s ease, opacity 0.3s ease;
+        z-index: 99;
+      }
+      .nav-links.open { transform: translateY(0); opacity: 1; }
+      .nav-links li { border-bottom: 1px solid rgba(255,255,255,0.07); }
+      .nav-links a { display: block; padding: 0.9rem 0; font-size: 0.9rem; letter-spacing: 0.06em; }
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-accent-box { display: none; }
+      .stats-row { gap: 1.5rem; }
+      .process-step { grid-template-columns: 44px 1fr; gap: 1.2rem; }
+      .hero-logo-box { width: 130px; height: 130px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><h1>Stephen <span>Reyes</h1></span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeMenu()">About</a></li>
+    <li><a href="#services" onclick="closeMenu()">Services</a></li>
+    <li><a href="#tools" onclick="closeMenu()">Tools</a></li>
+    <li><a href="#process" onclick="closeMenu()">Process</a></li>
+    <li><a href="#samples" onclick="closeMenu()">Work Samples</a></li>
+    <li><a href="#certifications" onclick="closeMenu()">Certifications</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- LOGO SPACE -->
+  <div class="hero-logo-wrap">
+    <div class="hero-logo-box" id="logoBox" >
+      <img src="Img/3D_logo.png" alt="Stephen Reyes Logo" />
+    </div>
+  </div>
+
+  <div class="hero-tag">Certified Amazon Virtual Assistant</div>
+  <h1>Hi, I'm <em>Stephen</em><br>Your Amazon Growth<br>Partner</h1>
+  <p class="hero-sub">Bringing 12+ years of corporate discipline in procurement, documentation, and operations to help Amazon sellers run smarter, more profitable stores.</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Work With Me</a>
+    <a href="#services" class="btn-outline">View Services</a>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-image-wrap reveal">
+      <div class="about-image-placeholder" style="background:transparent;border:none;padding:0;">
+         <span style="width:100%;height:100%;display:block;"><img style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:4px;" src="Img/Me.png" /></span>
+      </div>
+      <div class="about-accent-box"></div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Corporate Discipline<br>Meets Amazon Expertise</h2>
+      <div class="divider"></div>
+      <p>Hi! I'm <strong>Stephen Reyes</strong>, a certified Amazon Virtual Assistant with a strong foundation built across 12+ years of professional experience in the construction and e-commerce industries.</p>
+      <p>I began my career as a <strong>Purchaser in the construction industry (2013–2021)</strong>, where I developed sharp skills in procurement, vendor coordination, budgeting, and attention to detail. In late 2021, I transitioned into Amazon e-commerce as a <strong>Product Researcher</strong>, gaining direct hands-on experience with Seller Central and product discovery tools.</p>
+      <p>Since 2022, I've been working as a <strong>Document Controller</strong>, further strengthening my skills in organized reporting, process management, and meticulous documentation — all directly transferable to running a professional Amazon VA service.</p>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number">12+</div>
+          <div class="stat-label">Years Professional Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Certifications Earned</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Industries Mastered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Commitment to Every Client</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="reveal">
+      <div class="section-label">What I Offer</div>
+      <h2 class="section-title">Services</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🔍</div>
+        <h3>Product Research</h3>
+        <p>In-depth market analysis and product sourcing using data-driven strategies to find high-potential, low-competition products on Amazon.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">✍️</div>
+        <h3>Listing Optimization</h3>
+        <p>SEO-rich titles, bullet points, and descriptions crafted to rank higher and convert more customers on Amazon search results.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📊</div>
+        <h3>PPC Management</h3>
+        <p>Strategic Sponsored Ads setup and ongoing optimization to maximize your ROAS and reduce ACoS for sustainable growth.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📦</div>
+        <h3>Inventory Management</h3>
+        <p>Proactive stock monitoring, reorder planning, and FBA shipment creation to avoid costly stockouts and overstock situations.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🖼️</div>
+        <h3>Brand Content (A+)</h3>
+        <p>Eye-catching A+ Content and storefront design that tells your brand story and builds lasting customer trust.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📬</div>
+        <h3>Customer Service</h3>
+        <p>Prompt, professional responses to buyer messages and reviews to maintain high seller ratings and customer satisfaction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools" id="tools">
+  <div class="tools-inner">
+    <div class="reveal">
+      <div class="section-label">My Toolkit</div>
+      <h2 class="section-title">Tools & Platforms</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="tools-grid reveal">
+      <div class="tool-pill">Amazon Seller Central</div>
+      <div class="tool-pill">Helium 10</div>
+      <div class="tool-pill">Jungle Scout</div>
+      <div class="tool-pill">Keepa</div>
+      <div class="tool-pill">AMZScout</div>
+      <div class="tool-pill">SellerBoard</div>
+      <div class="tool-pill">Canva</div>
+      <div class="tool-pill">Google Sheets</div>
+      <div class="tool-pill">Slack</div>
+      <div class="tool-pill">HTML & CSS</div>
+      <div class="tool-pill">JavaScript</div>
+      <div class="tool-pill">Microsoft Office</div>
+      <div class="tool-pill">Tool4seller</div>
+      <div class="tool-pill">Adobe Photoshop</div>
+      <div class="tool-pill">Sony Vegas Pro</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="process-inner">
+    <div class="reveal">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">My Process</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Discovery Call</h3>
+          <p>We start with a free 30-minute call to understand your business goals, current challenges, and what you need most from an Amazon VA.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Store Audit</h3>
+          <p>I conduct a thorough review of your listings, campaigns, and account health to identify quick wins and long-term opportunities.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Strategy & Execution</h3>
+          <p>We align on priorities, I build a clear action plan, and get to work — with regular updates and transparent reporting throughout.</p>
+        </div>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Review & Scale</h3>
+          <p>Monthly performance reviews to track results, refine strategies, and scale what's working to grow your revenue continuously.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- WORK SAMPLES -->
+<section class="samples" id="samples">
+  <div class="samples-inner">
+    <div class="reveal">
+      <div class="section-label">See It In Action</div>
+      <h2 class="section-title">Work Samples</h2>
+      <div class="divider"></div>
+      <p class="samples-intro">Watch how I approach product research, sourcing strategy, and store audits — real workflows, real methods.</p>
+    </div>
+    <div class="samples-grid">
+
+      <div class="sample-card reveal">
+        <div class="sample-video-wrap">
+          <iframe src="https://drive.google.com/file/d/10pSntcXcdmcum2mnDPNTWcGbrVhY5yx-/preview" allowfullscreen allow="autoplay"></iframe>
+        </div>
+        <div class="sample-info">
+          <h3>Product Research & Sourcing</h3>
+          <p>A full walkthrough of how I identify winning products using Helium 10, validate demand, and source suppliers — step by step.</p>
+        </div>
+      </div>
+
+      <div class="sample-card reveal">
+        <div class="sample-video-wrap">
+          <div class="sample-video-placeholder">
+            <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg>
+            <span>Store Audit Demo</span>
+            <p>Paste your YouTube/Loom link here</p>
+          </div>
+        </div>
+        <div class="sample-info">
+          <h3>Amazon Store Audit</h3>
+          <p>See how I audit an Amazon seller account — reviewing listings, PPC performance, account health, and identifying growth opportunities.</p>
+        </div>
+      </div>
+
+    </div>
+    
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certifications" id="certifications">
+  <div class="certifications-inner">
+    <div class="reveal">
+      <div class="section-label">Credentials</div>
+      <h2 class="section-title">Certifications</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card reveal">
+        <div class="cert-img-wrap">
+          <div class="cert-img-placeholder">
+            
+            <span><img src="Img/1.png" alt="Stephen Reyes" /></span>
+          </div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-badge">🏆</div>
+          <div>
+            <h3>ASVA — Amazon Seller VA Masterclass</h3>
+            <div class="cert-issuer">AmazeNation</div>
+            <div class="cert-platform">Amazon Virtual Assistant Training Program</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal">
+        <div class="cert-img-wrap">
+          <div class="cert-img-placeholder">
+            
+            <span><img src="Img/2.jpg" alt="MTF Cert." /></span>
+          </div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-badge">🔗</div>
+          <div>
+            <h3>Professional Diploma in Procurement, Sourcing & Supply Chains</h3>
+            <div class="cert-issuer">MTF Institute of Management, Technology and Finance</div>
+            <div class="cert-platform">Udemy</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal">
+        <div class="cert-img-wrap">
+          <div class="cert-img-placeholder">
+            
+            <span><img src="Img/3.jpg" alt="Meta Cert" /></span>
+          </div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-badge">💻</div>
+          <div>
+            <h3>Introduction to Front-End Development</h3>
+            <div class="cert-issuer">Meta</div>
+            <div class="cert-platform">Coursera</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal">
+        <div class="cert-img-wrap">
+          <div class="cert-img-placeholder">
+            <span><img src="Img/4.jpg"/></span>
+          </div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-badge">🌐</div>
+          <div>
+            <h3>HTML, CSS, and JavaScript for Web Development</h3>
+            <div class="cert-issuer">Johns Hopkins University</div>
+            <div class="cert-platform">Coursera</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's Work Together</h2>
+      <div class="divider"></div>
+      <p>Ready to take your Amazon store to the next level? I'd love to hear about your business. Reach out and let's start with a free discovery call.</p>
+      <div class="contact-links">
+        <a href="mailto:steyes04@gmail.com" class="contact-link">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          steyes04@gmail.com
+        </a>
+        <a href="#" class="contact-link">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://wa.me/639562772092" target="_blank" class="contact-link">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="#" class="contact-link">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 2H3v16h5v4l4-4h9V2z"/></svg>
+          Upwork / Fiverr
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Stephen Reyes</span> · Certified Amazon Virtual Assistant · All rights reserved.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Hamburger menu
+  function toggleMenu() {
+    const nav = document.getElementById('navLinks');
+    const btn = document.getElementById('hamburger');
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+  // Close menu on outside click
+  document.addEventListener('click', function(e) {
+    const nav = document.getElementById('navLinks');
+    const btn = document.getElementById('hamburger');
+    if (!nav.contains(e.target) && !btn.contains(e.target)) {
+      nav.classList.remove('open');
+      btn.classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
