@@ -35,6 +35,11 @@
       animation: fadeDown 0.6s ease both;
     }
     
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+    .nav-logo span { color: var(--amazon-orange); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--amazon-orange); }
 
     /* ── HERO ── */
     .hero {
@@ -64,9 +69,7 @@
       transition: border-color 0.3s, background 0.3s; cursor: pointer;
       overflow: visible;
     }
-    .hero-logo-box:hover { border-color: var(--amazon-orange); background: rgba(255,153,0,0.12); }
-    .hero-logo-box img { width: 88%; height: 88%; object-fit: contain; padding: 0; transform: none; }
-    .hero-logo-box svg { opacity: 0.45; color: var(--amazon-orange); }
+   
     .hero-logo-box .placeholder-text { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 400; }
     .hero-logo-hint { font-size: 0.7rem; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; margin-top: 0.6rem; }
 
