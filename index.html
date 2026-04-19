@@ -37,9 +37,37 @@
     }
     .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
     .nav-logo span { color: var(--amazon-orange); }
-    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-    .nav-links a { font-size: 0.78rem; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+    .nav-links li { display: flex; align-items: center; height: 60px; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; height: 100%; }
     .nav-links a:hover { color: var(--amazon-orange); }
+
+    /* ── DROPDOWN ── */
+    .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
+    .nav-item > a { display: flex; align-items: center; gap: 0.35rem; }
+    .nav-item > a::after { content: '▾'; font-size: 0.6rem; opacity: 0.6; transition: transform 0.2s; }
+    .nav-item:hover > a::after { transform: rotate(180deg); }
+    .dropdown {
+      display: none; flex-direction: column;
+      position: absolute; top: 100%; left: 50%;
+      transform: translateX(-50%);
+      background: var(--amazon-dark);
+      border: 1px solid rgba(255,153,0,0.25);
+      border-top: 2px solid var(--amazon-orange);
+      min-width: 180px; z-index: 300;
+      border-radius: 0 0 4px 4px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      padding: 0.4rem 0;
+    }
+    .nav-item:hover .dropdown { display: flex; }
+    .dropdown a {
+      display: block; padding: 0.6rem 1.2rem;
+      font-size: 0.78rem; letter-spacing: 0.07em;
+      text-transform: uppercase; color: rgba(255,255,255,0.65);
+      text-decoration: none; white-space: nowrap;
+      transition: color 0.2s, background 0.2s;
+    }
+    .dropdown a:hover { color: var(--amazon-orange); background: rgba(255,153,0,0.07); }
 
     /* ── HERO ── */
     .hero {
@@ -128,7 +156,7 @@
 
     /* ── PROCESS ── */
     .process { background: var(--card); }
-    .process-inner { max-width: 900px; margin: 0 auto; }
+    .process-inner { max-width: 1100px; margin: 0 auto; }
     .process-steps { margin-top: 1rem; }
     .process-step { display: grid; grid-template-columns: 64px 1fr; gap: 2rem; padding: 2.4rem 0; border-bottom: 1px solid var(--line); }
     .step-num { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; color: var(--amazon-orange); opacity: 0.35; line-height: 1; padding-top: 0.2rem; }
@@ -152,12 +180,6 @@
     .sample-info { padding: 1.6rem 2rem; }
     .sample-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 500; color: var(--amazon-navy); margin-bottom: 0.5rem; }
     .sample-info p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
-
-    .sample-highlights { margin: 0.8rem 0 1rem 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-    .sample-highlights li { font-size: 0.88rem; color: var(--muted); line-height: 1.6; padding-left: 1rem; position: relative; }
-    .sample-highlights li::before { content: '▸'; position: absolute; left: 0; color: var(--amazon-orange); font-size: 0.75rem; top: 0.15rem; }
-    .sample-highlights li strong { color: var(--ink); }
-    .sample-cta { font-size: 0.88rem; color: var(--amazon-navy); font-weight: 500; margin-top: 0.8rem; font-style: italic; }
     .samples-note { font-size: 0.82rem; color: var(--muted); margin-top: 2rem; padding: 1rem 1.4rem; background: rgba(255,153,0,0.07); border-left: 3px solid var(--amazon-orange); border-radius: 0 4px 4px 0; }
     @media (max-width: 768px) { .samples-grid { grid-template-columns: 1fr; } }
 
@@ -166,11 +188,11 @@
     .certifications-inner { max-width: 1100px; margin: 0 auto; }
     .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
     .cert-card { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; gap: 0; transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s; position: relative; }
-    .cert-img-wrap { width: 100%; overflow: hidden; background: var(--bg); }
-    .cert-img-wrap img { width: 100%; height: auto; object-fit: contain; display: block; }
-    .cert-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.05em; border-bottom: 1px dashed var(--line); background: #f8f8f8; } .cert-img-placeholder span img { width:100%; height:auto; object-fit:contain; display:block; padding:8px; }
+    .cert-img-wrap { width: 100%; height: 200px; overflow: hidden; background: #f8f8f8; flex-shrink: 0; }
+    .cert-img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 8px; }
+    .cert-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--muted); font-size: 0.78rem; letter-spacing: 0.05em; border-bottom: 1px dashed var(--line); background: #f8f8f8; } .cert-img-placeholder span { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; } .cert-img-placeholder span img { width:100%; height:100%; object-fit:contain; display:block; padding:8px; }
     .cert-img-placeholder svg { opacity: 0.3; }
-    .cert-body { display: flex; align-items: flex-start; gap: 1rem; padding: 1.6rem; }
+    .cert-body { display: flex; align-items: flex-start; gap: 1rem; padding: 1.6rem; flex: 1; }
     .cert-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--amazon-orange); border-radius: 4px 4px 0 0; transform: scaleX(0); transition: transform 0.25s; }
     .cert-card:hover { border-color: rgba(255,153,0,0.4); box-shadow: 0 8px 28px rgba(0,0,0,0.08); transform: translateY(-4px); }
     .cert-card:hover::before { transform: scaleX(1); }
@@ -214,15 +236,39 @@
         position: fixed; top: 60px; right: 0; left: 0;
         background: var(--amazon-dark);
         border-top: 2px solid var(--amazon-orange);
-        padding: 1.2rem 6vw 2rem;
+        padding: 0.5rem 6vw 2rem;
         gap: 0; list-style: none;
         transform: translateY(-110%); opacity: 0;
         transition: transform 0.35s ease, opacity 0.3s ease;
         z-index: 99;
+        overflow-y: auto; max-height: calc(100vh - 60px);
       }
       .nav-links.open { transform: translateY(0); opacity: 1; }
-      .nav-links li { border-bottom: 1px solid rgba(255,255,255,0.07); }
-      .nav-links a { display: block; padding: 0.9rem 0; font-size: 0.9rem; letter-spacing: 0.06em; }
+
+      /* Reset desktop height constraints for mobile */
+      .nav-links li { border-bottom: 1px solid rgba(255,255,255,0.07); height: auto; display: block; }
+      .nav-links a { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 0; font-size: 0.9rem; letter-spacing: 0.06em; height: auto; }
+
+      /* Chevron visible on mobile for dropdown parents */
+      .nav-item > a::after { display: inline-block; content: '▾'; font-size: 0.65rem; opacity: 0.6; transition: transform 0.25s; margin-left: auto; }
+      .nav-item.open > a::after { transform: rotate(180deg); opacity: 1; color: var(--amazon-orange); }
+      .nav-item.open > a { color: var(--amazon-orange); }
+
+      /* Dropdowns hidden by default on mobile — show only when parent is .open */
+      .dropdown {
+        display: none;
+        flex-direction: column;
+        position: static; transform: none;
+        background: rgba(255,153,0,0.05);
+        border: none; border-left: 2px solid var(--amazon-orange);
+        box-shadow: none; padding: 0.2rem 0 0.6rem;
+        margin: 0 0 0.4rem 0.8rem;
+        border-radius: 0;
+        min-width: unset;
+      }
+      .nav-item.open .dropdown { display: flex; }
+      .dropdown a { padding: 0.6rem 0.8rem; font-size: 0.84rem; justify-content: flex-start; border-bottom: none; }
+      .dropdown a:last-child { border-bottom: none; }
     }
 
     @media (max-width: 768px) {
@@ -241,11 +287,21 @@
   <a class="nav-logo" href="#"><h2>Stephen <span>Reyes</h2></span></a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about" onclick="closeMenu()">About</a></li>
-    <li><a href="#services" onclick="closeMenu()">Services</a></li>
-    <li><a href="#tools" onclick="closeMenu()">Tools</a></li>
-    <li><a href="#process" onclick="closeMenu()">Process</a></li>
-    <li><a href="#samples" onclick="closeMenu()">Work Samples</a></li>
-    <li><a href="#certifications" onclick="closeMenu()">Certifications</a></li>
+    <li class="nav-item">
+      <a href="#">Expertise</a>
+      <div class="dropdown">
+        <a href="#services" onclick="closeMenu()">Services</a>
+        <a href="#tools" onclick="closeMenu()">Toolkit</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#">Showcase</a>
+      <div class="dropdown">
+        <a href="#samples" onclick="closeMenu()">Showroom</a>
+        <a href="#process" onclick="closeMenu()">Workflow</a>
+        <a href="#certifications" onclick="closeMenu()">Certifications</a>
+      </div>
+    </li>
     <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
@@ -278,7 +334,7 @@
   <div class="about-grid">
     <div class="about-image-wrap reveal">
       <div class="about-image-placeholder" style="background:transparent;border:none;padding:0;">
-         <span style="width:100%;height:100%;display:block;"><img style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:4px;" src="img/me.png" /></span>
+         <span style="width:100%;height:100%;display:block;"><img style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:4px;" src="img/pp.jpg" alt="Stephen Reyes" style="width:100%;height:100%;object-fit:cover;border-radius:4px;" /></span>
       </div>
       <div class="about-accent-box"></div>
     </div>
@@ -358,7 +414,7 @@
 <section class="tools" id="tools">
   <div class="tools-inner">
     <div class="reveal">
-      <div class="section-label">My Toolkit</div>
+      <div class="section-label">The Toolkit</div>
       <h2 class="section-title">Tools & Platforms</h2>
       <div class="divider"></div>
     </div>
@@ -386,9 +442,10 @@
 <section class="process" id="process">
   <div class="process-inner">
     <div class="reveal">
-      <div class="section-label">How It Works</div>
+      <div class="section-label">The Workflow</div>
       <h2 class="section-title">My Process</h2>
       <div class="divider"></div>
+      <p style="font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:2.5rem;max-width:620px;"></p>
     </div>
     <div class="process-steps">
       <div class="process-step reveal">
@@ -420,47 +477,56 @@
         </div>
       </div>
     </div>
+
+    <!-- VIDEO WALKTHROUGHS -->
+    <div style="margin-top:4rem;">
+      <div class="section-label reveal" style="margin-bottom:1.5rem;">Walkthrough</div>
+      <div class="samples-grid reveal">
+
+        <div class="sample-card">
+          <div class="sample-video-wrap">
+            <iframe src="https://drive.google.com/file/d/1BgUQ3oLV3yIQwHHZHGN5yp4oWkmM5of4/preview" allowfullscreen allow="autoplay"></iframe>
+          </div>
+          <div class="sample-info">
+            <h3>Product Launchpad: Data-Driven Research</h3>
+            <p>This video showcases a professional methodology for finding winning Amazon FBA products in days, not months. I reveal how to identify high-margin, low-competition opportunities by targeting a 30% net margin and validating demand with at least 2,000+ monthly searches across top keywords. Using tools like Helium 10 and Jungle Scout, I analyze sales velocity and mitigate risk by vetting for patents, trademarks, and gated categories. Stop guessing and start launching with data.</p>
+          </div>
+        </div>
+
+        <div class="sample-card">
+          <div class="sample-video-wrap">
+            <iframe src="https://drive.google.com/file/d/19aL0HoI0O-siD2J65c18hnFXknsJp_Re/preview" allow="autoplay" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>
+          </div>
+          <div class="sample-info">
+            <h3>Product Listing Optimization | Case Study</h3>
+            <p>Can a "broken" listing kill a great product? This case study proves it can. Watch as I audit an Amazon Basics product that plummeted from #40 to #189 in rankings. I break down my exact recovery process: using Tool4seller for high-traffic keyword research, Helium 10 Scribbles for 100% SEO coverage, and transforming empty descriptions into benefit-driven stories. From visual infographics to handling buyer objections, learn how to get your brand back to Page 1 with a data-driven approach.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
 
-<!-- WORK SAMPLES -->
+<!-- SHOWROOM -->
 <section class="samples" id="samples">
   <div class="samples-inner">
     <div class="reveal">
-      <div class="section-label">See It In Action</div>
-      <h2 class="section-title">Work Samples</h2>
+      <div class="section-label">The Results</div>
+      <h2 class="section-title">Showroom</h2>
       <div class="divider"></div>
-      <p class="samples-intro">Watch how I approach product research, sourcing strategy, and store audits — real workflows, real methods.</p>
+      <p class="samples-intro">High-converting Amazon listings and A+ Content. I create professional visuals that build brand trust and turn visitors into customers.</p>
     </div>
     <div class="samples-grid">
 
       <div class="sample-card reveal">
-        <div class="sample-video-wrap">
-          <iframe src="https://drive.google.com/file/d/1BgUQ3oLV3yIQwHHZHGN5yp4oWkmM5of4/preview" allow="autoplay" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>
-        </div>
-        <div class="sample-info">
-          <h3>Product Launchpad: Data-Driven Research</h3>
-          <p>This video showcases a professional methodology for finding winning Amazon FBA products in days, not months. I reveal how to identify high-margin, low-competition opportunities by targeting a 30% net margin and validating demand with at least 2,000+ monthly searches across top keywords. Using tools like Helium 10 and Jungle Scout, I analyze sales velocity and mitigate risk by vetting for patents, trademarks, and gated categories. Stop guessing and start launching with data.</p>
-        </div>
-      </div>
-
-      <div class="sample-card reveal">
-        <div class="sample-video-wrap">
-          <iframe src="https://drive.google.com/file/d/19aL0HoI0O-siD2J65c18hnFXknsJp_Re/preview" allow="autoplay" allowfullscreen style="width:100%;height:100%;border:none;"></iframe>
-        </div>
-        <div class="sample-info">
-          <h3>Product Listing Optimization | Case Study</h3>
-          <p>Can a "broken" listing kill a great product? This case study proves it can. Watch as I audit an Amazon Basics product that plummeted from #40 to #189 in rankings. I break down my exact recovery process: using Tool4seller for high-traffic keyword research, Helium 10 Scribbles for 100% SEO coverage, and transforming empty descriptions into benefit-driven stories. From visual infographics to handling buyer objections, learn how to get your brand back to Page 1 with a data-driven approach.</p>
-        </div>
-      </div>
-
-      <div class="sample-card reveal">
         <div class="sample-video-wrap" style="background:#f3f3f3;">
-          <img src="img/a+.png" alt="A+ Content Design Sample" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.style.background='#232F3E';this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <img src="img/a+.png" alt="A+ Content Design — Feline Friends" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
           <div class="sample-video-placeholder" style="display:none;">
-            <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span>A+ Content Design</span>
+            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" style="color:var(--amazon-orange);opacity:0.6;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span style="color:var(--muted);">img/a+.png</span>
           </div>
         </div>
         <div class="sample-info">
@@ -469,8 +535,49 @@
         </div>
       </div>
 
+      <div class="sample-card reveal">
+        <div class="sample-video-wrap" style="background:var(--bg);">
+          <div class="sample-video-placeholder" style="color:var(--muted);">
+            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" style="color:var(--amazon-orange);opacity:0.6;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span style="color:var(--muted);">Sample Coming Soon</span>
+            <p>Coming Soon...</p>
+          </div>
+        </div>
+        <div class="sample-info">
+          <h3>Listing Optimization</h3>
+          <p>Before-and-after listing transformation — keyword-rich titles, optimized bullet points, and a compelling product description.</p>
+        </div>
+      </div>
+
+      <div class="sample-card reveal">
+        <div class="sample-video-wrap" style="background:var(--bg);">
+          <div class="sample-video-placeholder" style="color:var(--muted);">
+            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" style="color:var(--amazon-orange);opacity:0.6;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span style="color:var(--muted);">Sample Coming Soon</span>
+            <p>Coming Soon...</p>
+          </div>
+        </div>
+        <div class="sample-info">
+          <h3>Brand Storefront</h3>
+          <p>Custom Amazon storefront design that tells a cohesive brand story and guides shoppers through the full product catalog.</p>
+        </div>
+      </div>
+
+      <div class="sample-card reveal">
+        <div class="sample-video-wrap" style="background:var(--bg);">
+          <div class="sample-video-placeholder" style="color:var(--muted);">
+            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" style="color:var(--amazon-orange);opacity:0.6;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span style="color:var(--muted);">Sample Coming Soon</span>
+            <p>Coming Soon...</p>
+          </div>
+        </div>
+        <div class="sample-info">
+          <h3>Product Imagery & Infographics</h3>
+          <p>High-impact product images with infographic overlays that highlight key features and differentiate from competitors.</p>
+        </div>
+      </div>
+
     </div>
-    
   </div>
 </section>
 
@@ -488,7 +595,7 @@
         <div class="cert-img-wrap">
           <div class="cert-img-placeholder">
             
-            <span><img src="img/1.png" alt="Stephen Reyes" /></span>
+            <span><img src="img/ASVA.png" alt="Stephen Reyes" /></span>
           </div>
         </div>
         <div class="cert-body">
@@ -505,7 +612,7 @@
         <div class="cert-img-wrap">
           <div class="cert-img-placeholder">
             
-            <span><img src="img/2.jpg" alt="MTF Cert." /></span>
+            <span><img src="img/MTF.jpg" alt="MTF Cert." /></span>
           </div>
         </div>
         <div class="cert-body">
@@ -522,7 +629,7 @@
         <div class="cert-img-wrap">
           <div class="cert-img-placeholder">
             
-            <span><img src="img/3.jpg" alt="Meta Cert" /></span>
+            <span><img src="img/META.jpg" alt="Meta Cert" /></span>
           </div>
         </div>
         <div class="cert-body">
@@ -538,7 +645,8 @@
       <div class="cert-card reveal">
         <div class="cert-img-wrap">
           <div class="cert-img-placeholder">
-            <span><img src="img/4.jpg"/></span>
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span><img src="img/Johns.jpg" alt="Johns Hopkins Cert" /></span>
           </div>
         </div>
         <div class="cert-body">
@@ -568,7 +676,7 @@
           <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           steyes04@gmail.com
         </a>
-        <a href="#" class="contact-link">
+        <a href="https://www.linkedin.com/in/stephenreyes04/" target="_blank" class="contact-link">
           <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           LinkedIn
         </a>
@@ -576,9 +684,9 @@
           <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           WhatsApp
         </a>
-        <a href="#" class="contact-link">
+        <a href="https://www.upwork.com/freelancers/~01d1257e1f7c6c941d?mp_source=share" target="_blank" class="contact-link">
           <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 2H3v16h5v4l4-4h9V2z"/></svg>
-          Upwork / Fiverr
+          Upwork
         </a>
       </div>
     </div>
@@ -609,11 +717,30 @@
     const btn = document.getElementById('hamburger');
     nav.classList.toggle('open');
     btn.classList.toggle('open');
+    if (!nav.classList.contains('open')) closeAllDropdowns();
+  }
+  function closeAllDropdowns() {
+    document.querySelectorAll('.nav-item.open').forEach(el => el.classList.remove('open'));
   }
   function closeMenu() {
     document.getElementById('navLinks').classList.remove('open');
     document.getElementById('hamburger').classList.remove('open');
+    closeAllDropdowns();
   }
+
+  // Tap-to-toggle dropdowns on mobile
+  document.querySelectorAll('.nav-item > a').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      if (window.innerWidth <= 900) {
+        e.preventDefault();
+        const parentLi = this.closest('.nav-item');
+        const isOpen = parentLi.classList.contains('open');
+        closeAllDropdowns();
+        if (!isOpen) parentLi.classList.add('open');
+      }
+    });
+  });
+
   // Close menu on outside click
   document.addEventListener('click', function(e) {
     const nav = document.getElementById('navLinks');
@@ -621,6 +748,7 @@
     if (!nav.contains(e.target) && !btn.contains(e.target)) {
       nav.classList.remove('open');
       btn.classList.remove('open');
+      closeAllDropdowns();
     }
   });
 </script>
