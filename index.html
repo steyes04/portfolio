@@ -183,6 +183,15 @@
     .samples-note { font-size: 0.82rem; color: var(--muted); margin-top: 2rem; padding: 1rem 1.4rem; background: rgba(255,153,0,0.07); border-left: 3px solid var(--amazon-orange); border-radius: 0 4px 4px 0; }
     @media (max-width: 768px) { .samples-grid { grid-template-columns: 1fr; } }
 
+
+    /* ── A+ SCROLLABLE IMAGE ── */
+    .aplus-scroll-wrap { position: relative; width: 100%; height: 340px; overflow: hidden; background: #f3f3f3; }
+    .aplus-scroll-inner { width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; }
+    .aplus-scroll-inner::-webkit-scrollbar { width: 5px; }
+    .aplus-scroll-inner::-webkit-scrollbar-track { background: #eee; }
+    .aplus-scroll-inner::-webkit-scrollbar-thumb { background: var(--amazon-orange); border-radius: 3px; }
+    .aplus-scroll-hint { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.55)); color: #fff; font-size: 0.72rem; letter-spacing: 0.06em; display: flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.7rem; pointer-events: none; transition: opacity 0.4s; }
+    .aplus-scroll-inner:not([data-scrolled]) + .aplus-scroll-hint { opacity: 1; }
     /* ── CERTIFICATIONS ── */
     .certifications { background: var(--bg); }
     .certifications-inner { max-width: 1100px; margin: 0 auto; }
@@ -522,11 +531,13 @@
     <div class="samples-grid">
 
       <div class="sample-card reveal">
-        <div class="sample-video-wrap" style="background:#f3f3f3;">
-          <img src="img/a+.png" alt="A+ Content Design — Feline Friends" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div class="sample-video-placeholder" style="display:none;">
-            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2" style="color:var(--amazon-orange);opacity:0.6;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span style="color:var(--muted);">img/a+.png</span>
+        <div class="aplus-scroll-wrap">
+          <div class="aplus-scroll-inner">
+            <img src="img/a+.png" alt="A+ Content Design — Feline Friends" style="width:100%;display:block;" />
+          </div>
+          <div class="aplus-scroll-hint">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            Scroll to view full design
           </div>
         </div>
         <div class="sample-info">
